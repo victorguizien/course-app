@@ -1,6 +1,6 @@
-# This is our first Github Actions workflow!
+# This is our first Github Actions workflow
 
-name: Build Application
+name: Build application
 
 runs:
   using: composite
@@ -9,16 +9,16 @@ runs:
   - name: Checkout repository
     uses: actions/checkout@v4
 
-  - name: Set up Python 3.10.7
+  - name: Set up Python
     uses: actions/setup-python@v5
     with:
       python-version: '3.10.7'
-
+  
   - name: Install poetry
     uses: snok/install-poetry@v1
     with:
       virtualenvs-in-project: true
-    
+
   - name: Load cached venv
     uses: actions/cache@v4
     id: cached-poetry-dependencies
@@ -26,7 +26,6 @@ runs:
       path: .venv
       key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
-  - name: Install dependencies using poetry
+  - name: Install depedencies poertry
     if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
     run: poetry run make install
-    shell: bash
